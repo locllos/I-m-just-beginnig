@@ -13,5 +13,6 @@ urlpatterns = [
     path('<int:question_id>/vote/', views.vote,
     name='vote'),
     path('<int:question_id>/vote/', views.vote, name='vote'),
-    path('form/',views.long_text_form)
+    path('form/',views.long_text_form,name='fornm'),
+    path('calculate/',views.calculate)
 ]

@@ -1,4 +1,5 @@
 import django.http
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from datetime import datetime
@@ -24,7 +25,7 @@ def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
-    except (KeyError, Choice.DoesNotExist):
+    except (KeyError):
         # Redisplay the question voting form.
         return render(request, 'main/detail', {
             'question': question,
@@ -56,3 +57,10 @@ def long_text_form(request):
 
 
     return render(request, 'main/forms.html', {})
+
+
+
+
+def calculate(request):
+    vl = Choice.objects.all().values()
+    return JsonResponse({'vl': list(vl)})
